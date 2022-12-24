@@ -1,0 +1,17 @@
+logging
+os
+aiogram
+asyncio
+requests
+bs4
+time
+tqdm
+random
+dateparser
+UserAgent
+datetime
+locale
+threading
+selenium
+pymongo
+webdriver_manager.chrome
