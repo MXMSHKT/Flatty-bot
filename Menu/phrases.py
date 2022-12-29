@@ -1,3 +1,4 @@
+from Default_values import *
 def flat_msg(data):
     Metr_msg = " "
     for i in data['Metro']:
@@ -22,19 +23,19 @@ def show_param_msg(data):
     typee = data['type']
     param_msg = "Параметры по которым осуществляется поиск:\n"
 
-    if low_price == 0 and high_price != 10000000:
-        param_msg += f"*Цена:* до {high_price}\n"
-    elif high_price == 10000000 and low_price != 0:
-        param_msg += f"*Цена:* от {low_price}\n"
-    elif high_price != 10000000 and low_price != 0:
-        param_msg += f"*Цена:* от {low_price} до {high_price}\n"
+    if low_price == MIN_PRICE and high_price != MIN_PRICE:
+        param_msg += f"*Цена:* до {high_price} ₽/месяц\n"
+    elif high_price == MAX_PRICE and low_price != MIN_PRICE:
+        param_msg += f"*Цена:* от {low_price} ₽/месяц\n"
+    elif high_price != MAX_PRICE and low_price != MIN_PRICE:
+        param_msg += f"*Цена:* от {low_price} до {high_price} ₽/месяц\n"
 
-    if low_area == 0 and high_area != 1000:
-        param_msg += f"*Обшая плошадь:* до {high_area}\n"
-    elif high_area == 1000 and low_area != 0:
-        param_msg += f"*Обшая плошадь:* от {low_area}\n"
-    elif high_area != 1000 and low_area != 0:
-        param_msg += f"*Обшая плошадь:* от {low_area} до {high_area}\n"
+    if low_area == MIN_AREA and high_area != MAX_AREA:
+        param_msg += f"*Обшая плошадь:* до {high_area} м²\n"
+    elif high_area == MAX_AREA and low_area != MIN_AREA:
+        param_msg += f"*Обшая плошадь:* от {low_area} м²\n"
+    elif high_area != MAX_AREA and low_area != MIN_AREA:
+        param_msg += f"*Обшая плошадь:* от {low_area} до {high_area} м²\n"
 
     if typee != " ":
         param_msg += f"*Тип жилья:* {typee}"
@@ -90,7 +91,7 @@ save_msg = """
 Cохраняем параметры...
 """
 save_toDB_msg = """
-Все параметры сохранены! 
+Параметр сохранен! 
 """
 
 no_image = """
