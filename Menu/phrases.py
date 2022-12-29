@@ -1,17 +1,50 @@
-
 def flat_msg(data):
     Metr_msg = " "
     for i in data['Metro']:
         Metr_msg += "м." + "".join(i) + ",\n"
-    flatmsg = (f" * {data['FlatParams']['Rooms_number']}, {data['FlatParams']['Total_area']} м²*, этаж {data['FlatParams']['floor']}/{data['FlatParams']['Total_floors']}\n"
-                         f"{data['Address']['City']},{data['Address']['County']},{data['Address']['District']},{data['Address']['Street']}, {data['Address']['BlockNumber']}\n"
-                         f"*Ближайщее метро*"
-                        f"{Metr_msg}"
-                         f"*Цена:* {data['Price']}₽/месяц\n"
-                         f"Дата публикации обьявления: {data['Date']}, {data['Time']} \n"
-                         f"*Подробности:*\n"
-                         f"{data['Link']}")
+    flatmsg = (
+        f" * {data['FlatParams']['Rooms_number']}, {data['FlatParams']['Total_area']} м²*, этаж {data['FlatParams']['floor']}/{data['FlatParams']['Total_floors']}\n"
+        f"{data['Address']['City']}, {data['Address']['County']}, {data['Address']['District']}, {data['Address']['Street']}, {data['Address']['BlockNumber']}\n"
+        f"*Ближайщее метро*:\n"
+        f"{Metr_msg}"
+        f"*Цена:* {data['Price']}₽/месяц\n"
+        f"Дата публикации обьявления: {data['Date']}, {data['Time']} \n"
+        f"*Подробности:*\n"
+        f"{data['Link']}")
     return flatmsg
+
+
+def show_param_msg(data):
+    low_price = data['low_price']
+    high_price = data['high_price']
+    low_area = data['low_area']
+    high_area = data['high_area']
+    typee = data['type']
+    param_msg = "Параметры по которым осуществляется поиск:\n"
+
+    if low_price == 0 and high_price != 10000000:
+        param_msg += f"*Цена:* до {high_price}\n"
+    elif high_price == 10000000 and low_price != 0:
+        param_msg += f"*Цена:* от {low_price}\n"
+    elif high_price != 10000000 and low_price != 0:
+        param_msg += f"*Цена:* от {low_price} до {high_price}\n"
+
+    if low_area == 0 and high_area != 1000:
+        param_msg += f"*Обшая плошадь:* до {high_area}\n"
+    elif high_area == 1000 and low_area != 0:
+        param_msg += f"*Обшая плошадь:* от {low_area}\n"
+    elif high_area != 1000 and low_area != 0:
+        param_msg += f"*Обшая плошадь:* от {low_area} до {high_area}\n"
+
+    if typee != " ":
+        param_msg += f"*Тип жилья:* {typee}"
+
+    return param_msg
+
+
+no_param_msg = "Нет параметров для сортировки\n" \
+               "Для настройки параметров зайдите в *settings*"
+
 
 welcome_msg = """
 Привет! Это Flatty Bot! Помогаю в поиске квартир
@@ -19,6 +52,7 @@ welcome_msg = """
 *Доступные команды:*
 `/show` — показывает информацию о квартирах
 `settings` — показывает параметры которы можно настроить для лучшего поиска
+`show parameters` - показывает настроенные параметры
 `/help` — показывает информацию о боте
 `/about` — узнать о боте
 """
@@ -27,10 +61,10 @@ help_msg = """
 *Доступные команды:*
 `/show` — показывает информацию о квартирах
 `settings` — показывает параметры которы можно настроить для лучшего поиска
+`show parameters` - показывает настроенные параметры
 `/help` — показывает информацию о боте
 `/about` — узнать о боте
 """
-
 
 about_flatty_msg = """
 Это бот для поиска квартир для аренды в Москва с циана. В Setting вы можете настроить параметры выдачи.
@@ -47,9 +81,7 @@ back_msg = """
 show_msg = f"""
 Показываю по 4 квартиры
 """
-show_more_msg = """
-Показываю еще по 4 квартиры
-"""
+
 no_show_msg = """
 Под ваши параметры нет квартир 
 """
@@ -61,7 +93,7 @@ save_toDB_msg = """
 Все параметры сохранены! 
 """
 
-no_image="""
+no_image = """
 К сажелению фото нет
 """
 

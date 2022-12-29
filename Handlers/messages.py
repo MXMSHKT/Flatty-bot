@@ -21,6 +21,7 @@ async def back(message: types.Message):
         parse_mode='Markdown'
     )
 
+
 async def send_help(message: types.Message, state: FSMContext):
     await message.answer(
         text=help_msg,

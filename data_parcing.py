@@ -189,11 +189,13 @@ def pagination(url, page_limit=100):
             if links:
                 activepage = [x.text.strip() for x in soup.find("div", {"data-name": "Pagination"}).find_all("li") if
                               x.get("class") is not None and len(x.get("class")) == 2]
-                print("activepage", activepage)
+
                 for i in links:
-                    cian_id = int(url.split("/")[-2].strip())
+                    cian_id = int(i.split("/")[-2].strip())
                     if i not in flat_links and col.find_one({"_id": cian_id}) is None:
-                        flat_links += links
+                        flat_links += i
+                        with open("used_page.txt", "a", encoding="utf8") as file:
+                            file.write(i + "\n")
                     else:
                         print("Flat - ", cian_id, " was processed")
                     if col.find_one({"_id": cian_id}):
@@ -215,9 +217,6 @@ def pagination(url, page_limit=100):
         driver.close()
         driver.quit()
 
-    for i in flat_links:
-        with open("used_page.txt", "a", encoding="utf8") as file:
-            file.write(i + "\n")
     return flat_links
 
 

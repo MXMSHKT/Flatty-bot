@@ -1,2 +1,7 @@
 
 test.py
+*.txt
+*.txt
+logs.txt
+geckodriver
+geckodriver.log
