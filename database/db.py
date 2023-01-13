@@ -1,5 +1,5 @@
 import pymongo
-from Default_values import *
+from bot_settings.Default_values import *
 client = pymongo.MongoClient("mongodb://localhost:27017")
 
 db = client["CIAN"]
